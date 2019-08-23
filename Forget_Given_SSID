@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ## By José Paulo and Lucas Silva, from MacSolution. August 13th 2019.
+## José Paulo GitHub - https://github.com/JPAlvim
 
 ## Grabs the SSID until the 5th row and records into SSID variable
 SSID=$(/Sy*/L*/Priv*/Apple8*/V*/C*/R*/airport -I | grep SSID | grep -v BSSID | awk '{print $2,$3,$4,$5}')
