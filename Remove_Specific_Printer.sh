@@ -1,5 +1,6 @@
 #!/bin/bash
 # Specify printer's name on PRINTER_NAME
+## by Lucas Almeida - https://github.com/LucasAlmeida-MS
 
 Printer=$(lpstat -p | awk '{print $2}' | grep -a PRINTER_NAME)
 
