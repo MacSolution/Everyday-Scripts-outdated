@@ -1,0 +1,63 @@
+#!/bin/zsh
+
+curUser=$(/usr/bin/stat -f%Su /dev/console)
+DEPARTAMENTO="$(sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to choose from list {"BI", "Desenvolvimento", "Design", "Diretoria", "Labs", "Marketing"} with title "Title" with prompt "Escolha o departamento apropriado" default items "aa"')"
+RESTRICTED="$(sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to choose from list {"Aplicar", "Não aplicar"} with title "Title" with prompt "Você quer aplicar restrições de mídia à esta máquina?" default items "aa"')"
+
+if [ "${DEPARTAMENTO}" == "BI" ]; then
+  if [ "${RESTRICTED}" == "Aplicar" ]; then
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=38268435-fe47-47bb-8a05-83412bf2f011
+  else
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=cbe3bab3-d7bf-4adb-8eb9-a5b63a77d4ce
+  fi
+fi
+
+if [ "${DEPARTAMENTO}" == "Desenvolvimento" ]; then
+  if [ "${RESTRICTED}" == "Aplicar" ]; then
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=74964578-edef-4afb-a8da-1ce9c897e667
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}' Restricted. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  else
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=c5b5bd48-5fa2-41cf-8b14-f06c383bfac4
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}'. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  fi
+fi
+
+if [ "${DEPARTAMENTO}" == "Design" ]; then
+  if [ "${RESTRICTED}" == "Aplicar" ]; then
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=accecbf8-28b3-43f7-806f-0e4502b3c25f
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}' Restricted. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  else
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=2f807816-0485-4c44-9a7c-2a72e6219f04
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}'. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  fi
+fi
+
+if [ "${DEPARTAMENTO}" == "Diretoria" ]; then
+  if [ "${RESTRICTED}" == "Aplicar" ]; then
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=c6be1fb4-5bfe-43e9-a730-83af14ae78ed
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}' Restricted. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  else
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=3a595434-846b-4251-9669-46807556c1c6
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}'. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  fi
+fi
+
+if [ "${DEPARTAMENTO}" == "Labs" ]; then
+  if [ "${RESTRICTED}" == "Aplicar" ]; then
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=060aba6d-3509-4eb9-b6a3-df628391673b
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}' Restricted. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  else
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=0dd7e448-210a-448e-a96f-1229f1ff0844
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}'. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  fi
+fi
+
+if [ "${DEPARTAMENTO}" == "Marketing" ]; then
+  if [ "${RESTRICTED}" == "Aplicar" ]; then
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=7ae3388e-3bbe-45b9-98fd-90f670486ac3
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}' Restricted. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  else
+    sudo curl -o /tmp/macinstall https://agents.addigy.com/installer-darwin-amd64 && sudo chmod +x /tmp/macinstall && sudo /tmp/macinstall realm=prod orgid=ee8e41a9-87d6-4612-98f5-e32ccbdeb8ed policy_id=9c27cc04-4984-4eb3-810e-3244b668b572
+    sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Este computador foi adicionado em '${DEPARTAMENTO}'. Vá em System Preferences para aprovar o perfil." with title "Sucesso!" with text buttons {"OK"} default button "OK"'
+  fi
+fi

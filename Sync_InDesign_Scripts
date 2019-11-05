@@ -1,0 +1,4 @@
+#!/bin/bash
+
+curUser=$(/usr/bin/stat -f%Su /dev/console)
+rsync -rz "/Users/${curUser}/Desktop/Scripts InDesign/" "/Applications/Adobe InDesign CC 2019/Scripts/Scripts Panel/"

@@ -2,7 +2,9 @@
 
 ## by José Paulo - https://github.com/JPAlvim
 
-Host_Name="$(/usr/bin/osascript -e 'Tell current application to display dialog "Please enter the desired HostName:" default answer "" with title "Change HostName" with text buttons {"Ok"} default button 1 with hidden answer' -e 'text returned of result')"
+curUser=$(/usr/bin/stat -f%Su /dev/console)
+
+Host_Name="$(sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell application 'Finder' to display dialog "Please enter the desired HostName:" default answer "" with title "Change HostName" with text buttons {"Ok"} default button 1 with hidden answer' -e 'text returned of result')"
 
 sudo scutil --set HostName $Host_Name
 sudo scutil --set LocalHostName $Host_Name
