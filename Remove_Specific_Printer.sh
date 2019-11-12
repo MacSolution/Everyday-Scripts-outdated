@@ -1,7 +1,9 @@
 #!/bin/bash
-# Specify printer's name on PRINTER_NAME
+
+## By Lucas Almeida, from MacSolution. November 12th 2019.
 ## by Lucas Almeida - https://github.com/LucasAlmeida-MS
 
+# Specify printer's name on PRINTER_NAME
 Printer=$(lpstat -p | awk '{print $2}' | grep -a PRINTER_NAME)
 
 if [ $Printer = "PRINTER_NAME" ]; then 
