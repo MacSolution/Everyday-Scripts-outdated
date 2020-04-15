@@ -6,6 +6,7 @@
 ## Setting variables.
 
 curUser=$(/usr/bin/stat -f%Su /dev/console)
+curUserUID=$(id -u "$curUser")
 
 DOWNLOAD_URL="https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg"
 DMG_PATH="/tmp/Google Chrome.dmg"
@@ -14,9 +15,9 @@ APP_NAME="Google Chrome.app"
 APP_PATH="/Applications/$APP_NAME"
 APP_PROCESS_NAME="Google Chrome"
 APP_INFO_PLIST="Contents/Info.plist"
-APP_VERSION_KEY="CFBundleShortVersionString"
+APP_VERSION_KEY="CFBundleVersion"
 APP_PERMISSION_USER="root"
-APP_PERMISSION_GROUP="wheel"
+APP_PERMISSION_GROUP="wheel"    
 APP_DIRECTORY="/Applications/Google Chrome.app"
 
 ## Downloading Chrome.
@@ -72,7 +73,7 @@ import os
 import glob
 
 pl = plistlib.readPlist(os.path.join("${APP_DIRECTORY}", "Contents/Info.plist"))
-print pl["CFBundleShortVersionString"]
+print pl["CFBundleVersion"]
 END`
 
 echo "Current Version: ${INSTALLED_VERSION}"
@@ -86,7 +87,7 @@ then
     echo "Installed version is older than ${TARGET_VERSION}."
     echo "Prompting ${curUser} to close Google Chrome."
 
-    CLOSE_CHROME="$(sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Your Google Chrome is outdated and must be Updated to version '$TARGET_VERSION'. Click Update Now to close Google Chrome and get its latest release." with title "Google Chrome Update" with text buttons {"Update Now", "Tomorrow"} default button "Update Now"')"
+    CLOSE_CHROME="$(/bin/launchctl asuser $curUserUID sudo -iu "$curUser" /usr/bin/osascript -e  'Tell current application to display dialog "Your Google Chrome is outdated and must be Updated to version '$TARGET_VERSION'. Click Update Now to close Google Chrome and get its latest release." with title "Google Chrome Update" with text buttons {"Update Now", "Tomorrow"} default button "Update Now"')"
 
     if [ "$CLOSE_CHROME" = "button returned:Update Now" ]; then
       if pgrep "$APP_PROCESS_NAME" &>/dev/null; then
@@ -97,7 +98,7 @@ then
         hdiutil detach -quiet "$DMG_PATH"
         rm "$DMG_PATH"
         echo "Google Chrome installed successfully at version ${TARGET_VERSION}"
-        sudo launchctl asuser $curUser /usr/bin/osascript -e 'Tell current application to display dialog "Your Google Chrome has been successfully updated to version '$TARGET_VERSION'." with title "Success!" with text buttons {"OK"} default button "OK"'
+        /bin/launchctl asuser $curUserUID sudo -iu "$curUser" /usr/bin/osascript -e  'Tell current application to display dialog "Your Google Chrome has been successfully updated to version '$TARGET_VERSION'." with title "Success!" with text buttons {"OK"} default button "OK"'
         exit 0
       else
           echo "Scheduled for the next day."
